@@ -30,7 +30,7 @@ if ($hassiteconfig) {
     $settings->add(new admin_setting_configtext(
         'tool_pluginskel/copyright',
         new lang_string('copyright', 'tool_pluginskel'),
-        new lang_string('copyright_desc', 'tool_pluginskel'),
+        //new lang_string('copyright_desc', 'tool_pluginskel'),
         date('Y').' Your Name <you@example.com>',
         PARAM_RAW
     ));
