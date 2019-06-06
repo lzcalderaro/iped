@@ -29,9 +29,8 @@ if ($hassiteconfig) {
     $settings = new admin_settingpage('tool_pluginskel_settings', new lang_string('pluginname', 'tool_pluginskel'));
 
     $settings->add(new admin_setting_configtext(
-        'tool_pluginskel/copyright',
-        new lang_string('copyright', 'tool_pluginskel'),
-        //new lang_string('copyright_desc', 'tool_pluginskel'),
+        'tool_pluginskel/iped_token',
+        new lang_string('iped_token_label', 'tool_pluginskel'),
         'IPED Token',
         PARAM_RAW
     ));

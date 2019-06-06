@@ -361,6 +361,7 @@ $string['qtype_features_base_class_help'] = 'Base class for the question class l
 $string['qtype_features_base_class_link'] = 'https://docs.moodle.org/dev/Question_types';
 
 $string['pluginname'] = 'IPED Integration';
+$string['iped_token_label'] = 'Insert IPED Token';
 $string['recipe'] = 'Recipe';
 $string['recipe_help'] = 'The recipe should be written using the YAML serialization format. A recipe template is located in the plugin installation directory at cli/example.yaml.
 
