@@ -480,6 +480,10 @@ class manager {
             $this->prepare_file_skeleton('settings.php', 'php_internal_file', 'settings');
         }
 
+        if ($this->has_common_feature('blocks')) {
+            $this->prepare_file_skeleton('blocks_ipedcourses.php', 'php_internal_file', 'blocks');
+        }
+
         if ($this->has_common_feature('install')) {
             $this->prepare_file_skeleton('db/install.php', 'php_internal_file', 'db_install');
         }
