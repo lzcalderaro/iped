@@ -30,7 +30,7 @@ if ($hassiteconfig) {
 
     $settings->add(new admin_setting_configtext(
         'tool_pluginskel/copyright',
-        new lang_string('copyright', 'tool_pluginskel'),
+        new lang_string('IPED Token', 'tool_pluginskel'),
         //new lang_string('copyright_desc', 'tool_pluginskel'),
         'IPED Token',
         PARAM_RAW
