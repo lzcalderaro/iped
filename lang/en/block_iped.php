@@ -15,16 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Version details
+ * Lang strings for block_iped block
  *
- * @package    iped
+ * @package    block_iped
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2019010700;        // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2018050800;        // Requires this Moodle version.
-$plugin->component = 'block_iped'; // Full name of the plugin (used for diagnostics).
-$plugin->maturity = MATURITY_STABLE;
-$plugin->release = 'v1.6.0';
+
+$string['pluginname'] = 'Iped';
+$string['ipedtoken'] = 'Iped Token';
+$string['ipedtokendesc'] = 'Insert your iped token to connect.';

@@ -1,7 +1,10 @@
 <?php
-    $capabilities = array(
 
-    'block/ipedcourses:myaddinstance' => array(
+defined('MOODLE_INTERNAL') || die();
+
+$capabilities = array(
+
+    'block/newblock:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(
@@ -11,7 +14,7 @@
         'clonepermissionsfrom' => 'moodle/my:manageblocks'
     ),
 
-    'block/ipedcourses:addinstance' => array(
+    'block/newblock:addinstance' => array(
         'riskbitmask' => RISK_SPAM | RISK_XSS,
 
         'captype' => 'write',

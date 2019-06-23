@@ -15,33 +15,19 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Link to plugin generator.
+ * iped block settings
  *
- * @package    tool_pluginkenobi
- * @copyright  2016 Alexandru Elisei
+ * @package    block_iped
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die;
 
-if ($hassiteconfig) {
+if ($ADMIN->fulltree) {
 
-    $settings = new admin_settingpage('tool_pluginskel_settings', new lang_string('pluginname', 'tool_pluginskel'));
+    $name = 'block_iped/ipedtoken';
+    $title = new lang_string('ipedtoken', 'block_iped');
+    $description = new lang_string('ipedtokendesc', 'block_iped');
+    $setting = new admin_setting_configtext( $name, $title, $description, 500, PARAM_RAW );
+    $settings->add($setting);
 
-    $settings->add(new admin_setting_configtext(
-        'tool_pluginskel/iped_token',
-        new lang_string('iped_token_label', 'tool_pluginskel'),
-        'IPED Token',
-        PARAM_RAW
-    ));
-
-    $ADMIN->add('tools', $settings);
-
-    $ADMIN->add(
-        'development',
-        new admin_externalpage(
-            'tool_pluginskel', get_string('generateskel', 'tool_pluginskel'),
-            new moodle_url('/admin/tool/pluginskel/index.php')
-        )
-    );
 }
