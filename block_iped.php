@@ -72,7 +72,7 @@ class block_iped extends block_base
     private function beautifier_course( $courses )
     {
 
-        $data = '<div class="card-text  mt-3"> <ul class="pl-0 list-group list-group-flush">';
+        $data = '<div class="card-text  mt-3" style="overflow-y: auto; height: 300px;"> <ul class="pl-0 list-group list-group-flush">';
 
         foreach ( $courses as $course ) {
 
