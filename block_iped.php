@@ -75,7 +75,7 @@ class block_iped extends block_base
     private function beautifier_course( $courses )
     {
 
-        $data = '<div class="card-text mt-3 pr-3" style="overflow-y: scroll; overflow-x:hidden; height:500px;"> <ul class="pl-0 list-group list-group-flush">';
+        $data = '<div class="card-text mt-3 pr-3" style="overflow-y: scroll; overflow-x:hidden; max-height:500px;"> <ul class="pl-0 list-group list-group-flush">';
 
         foreach ( $courses as $course ) {
 
@@ -107,7 +107,7 @@ class block_iped extends block_base
                         </div>
                         <div class='col-4 pr-3'>
                             <div class='d-flex flex-row justify-content-end' style='height: 32px; padding-top: 2px'>
-                                <a href='https://www.iped.com.br/{$course->course_slug}' target='_blank' class='btn btn-sm btn-info text-uppercase'><strong>Ir para o Curso</strong></a>
+                                <a href='{$course->course_iframe_url}' target='_blank' class='btn btn-sm btn-info text-uppercase'><strong>Ir para o Curso</strong></a>
                             </div>
                         </div>
                     </div>
