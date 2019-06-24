@@ -55,8 +55,10 @@ class block_iped extends block_base
         $url = 'http://www.iped.com.br/api/course/get-courses';
         $args = [
             'token' => $token,
-            'user_token' => $user_token,
+            'user_token' => $user_token->token,
+            'user_id' => $user_token->iped_user_id,
             'results' => 999999,
+            'external_lms' => 1,
         ];
 
         $get_courses = $this->iped_call($url, $args);
@@ -90,7 +92,7 @@ class block_iped extends block_base
 
             $data .= "<img src='{$course->course_image}' class='bg-pulse-grey rounded-circle'  style='height: 32px; width: 32px;'>";
             $data .= "<div style='flex: 1' class='pl-2'>
-                        <a href='https://www.iped.com.br/{$course->course_slug}' target='_blank'><strong>{$course->course_title}</strong></a>";
+                        <a href='{$course->course_iframe_url}' target='_blank'><strong>{$course->course_title}</strong></a>";
 
             if ( $course_progress != 0 ) {
                 $data .= "<div class='progress'>
@@ -125,7 +127,8 @@ class block_iped extends block_base
 
         if ($iped_token !== false) {
 
-            return $iped_token->token;
+            //return $iped_token->token;
+            return $iped_token;
         }
 
         $url = 'https://www.iped.com.br/api/user/login-auth';
@@ -143,10 +146,12 @@ class block_iped extends block_base
 
         $data = new stdClass();
         $data->user_id = $user->id;
+        $data->iped_user_id = $iped_token->USER_ID;
         $data->token = $iped_token->USER_TOKEN;
         $DB->insert_record('iped', $data);
 
-        return $iped_token->USER_TOKEN;
+        //return $iped_token->USER_TOKEN;
+        return $iped_token;
     }
 
     private function iped_call($url, $args)
