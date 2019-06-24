@@ -23,6 +23,6 @@
 
 
 
-$string['pluginname'] = 'Iped';
-$string['ipedtoken'] = 'Iped Token';
+$string['pluginname'] = 'iPED';
+$string['ipedtoken'] = 'iPED Token';
 $string['ipedtokendesc'] = 'Insert your iped token to connect.';

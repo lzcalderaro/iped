@@ -59,6 +59,7 @@ class block_iped extends block_base
             'user_id' => $user_token->iped_user_id,
             'results' => 999999,
             'external_lms' => 1,
+            'inprogress' => 1,
         ];
 
         $get_courses = $this->iped_call($url, $args);
@@ -123,7 +124,7 @@ class block_iped extends block_base
 
         global $DB;
 
-        $iped_token = $DB->get_record_sql('SELECT token FROM {iped} WHERE user_id = ? ', [$user->id]);
+        $iped_token = $DB->get_record_sql('SELECT token, iped_user_id FROM {iped} WHERE user_id = ? ', [$user->id]);
 
         if ($iped_token !== false) {
 
