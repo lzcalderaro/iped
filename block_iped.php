@@ -35,35 +35,35 @@ class block_iped extends block_base
     }
 
     function content_is_trusted() {
-          global $SCRIPT;
+        global $SCRIPT;
 
-          if (!$context = context::instance_by_id($this->instance->parentcontextid, IGNORE_MISSING)) {
-              return false;
-          }
-          //find out if this block is on the profile page
-          if ($context->contextlevel == CONTEXT_USER) {
-              if ($SCRIPT === '/my/index.php') {
-                  // this is exception - page is completely private, nobody else may see content there
-                  // that is why we allow JS here
-                  return true;
-              } else {
-                  // no JS on public personal pages, it would be a big security issue
-                  return false;
-              }
-          }
+        if (!$context = context::instance_by_id($this->instance->parentcontextid, IGNORE_MISSING)) {
+            return false;
+        }
+        //find out if this block is on the profile page
+        if ($context->contextlevel == CONTEXT_USER) {
+            if ($SCRIPT === '/my/index.php') {
+                // this is exception - page is completely private, nobody else may see content there
+                // that is why we allow JS here
+                return true;
+            } else {
+                // no JS on public personal pages, it would be a big security issue
+                return false;
+            }
+        }
 
-          return true;
-      }
+        return true;
+    }
 
-      /**
-       * The block should only be dockable when the title of the block is not empty
-       * and when parent allows docking.
-       *
-       * @return bool
-       */
-      public function instance_can_be_docked() {
-          return (!empty($this->config->title) && parent::instance_can_be_docked());
-      }
+    /**
+     * The block should only be dockable when the title of the block is not empty
+     * and when parent allows docking.
+     *
+     * @return bool
+     */
+    public function instance_can_be_docked() {
+        return (!empty($this->config->title) && parent::instance_can_be_docked());
+    }
 
 
     private function get_iped_courses($user)
@@ -106,46 +106,173 @@ class block_iped extends block_base
     private function beautifier_course( $courses )
     {
 
-        $data = '<div class="card-text mt-3 pr-3" style="overflow-y: scroll; overflow-x:hidden; max-height:500px;"> <ul class="pl-0 list-group list-group-flush">';
+      $region = $this->instance->region;
+      $data = "<style>
+                .iped-content {
+                  overflow-y: scroll;
+                  overflow-x:hidden;
+                  max-height:500px;
+                }
+                .iped-content ul {
+                  list-style: none;
+                  margin: 0;
+                  padding: 0;
+                }
+                .iped-content ul li {
+                  clear: both;
+                }
+
+                .iped-content ul li hr {
+                  margin: 10px 0 !important;
+                }
+
+                .iped-course {
+                }
+
+                .iped-course-image {
+                  float: left;
+                  margin-right: 15px;
+                  width: 5%;
+                }
+                  .iped-course-image img {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                  }
+
+                  .iped-course-title {
+                    float: left;
+                    width: 70%;
+                  }";
+
+                  if( $region != 'content') {
+
+                    $data .= ".iped-course-title {
+                      float: left;
+                      width: 100%;
+                    }";
+
+                  }
+
+          $data .= ".iped-progress {
+                    display: flex;
+                    height: 1rem;
+                    overflow: hidden;
+                    font-size: .703125rem;
+                    background-color: #e9ecef;
+                  }
+
+                  .iped-progress .iped-progressbar {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    color: #fff;
+                    text-align: center;
+                    background-color: #f0ad4e;
+                    -webkit-transition: width .6s ease;
+                    -o-transition: width .6s ease;
+                    transition: width .6s ease;
+                  }
+
+                  .iped-button {
+                    margin-top: 10px;
+                    float: right;
+                  }
+
+                  .iped-button a {
+                    display: inline-block;
+                    *display: inline;
+                    *zoom: 1;
+                    padding: 4px 10px;
+                    margin-bottom: 0;
+                    line-height: 15px;
+                    text-align: center;
+                    vertical-align: middle;
+                    cursor: pointer;
+                    color: #333;
+                    text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+                    background-color: #f5f5f5;
+                    background-image: -moz-linear-gradient(top, #fff, #e6e6e6);
+                    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fff), to(#e6e6e6));
+                    background-image: -webkit-linear-gradient(top, #fff, #e6e6e6);
+                    background-image: -o-linear-gradient(top, #fff, #e6e6e6);
+                    background-image: linear-gradient(to bottom, #fff, #e6e6e6);
+                    background-repeat: repeat-x;
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+                    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+                    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+                    *background-color: #e6e6e6;
+                    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+                    border: 1px solid #ccc;
+                    *border: 0;
+                    border-bottom-color: #b3b3b3;
+                    -webkit-border-radius: 4px;
+                    -moz-border-radius: 4px;
+                    border-radius: 4px;
+                    *margin-left: .3em;
+                    -webkit-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+                    -moz-box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+                    box-shadow: inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05);
+
+                    text-transform: uppercase;
+                    font-size: 9px;
+                    color: #fff;
+                    text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
+                    background-color: #49afcd;
+                    background-image: -moz-linear-gradient(top, #5bc0de, #2f96b4);
+                    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#5bc0de), to(#2f96b4));
+                    background-image: -webkit-linear-gradient(top, #5bc0de, #2f96b4);
+                    background-image: -o-linear-gradient(top, #5bc0de, #2f96b4);
+                    background-image: linear-gradient(to bottom, #5bc0de, #2f96b4);
+                    background-repeat: repeat-x;
+                    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff5bc0de', endColorstr='#ff2f96b4', GradientType=0);
+                    border-color: #2f96b4 #2f96b4 #1f6377;
+                    border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+                    *background-color: #2f96b4;
+                    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+                  }
+                  </style>";
+
+        $data .= '<div class="iped-content"><ul>';
 
         foreach ( $courses as $course ) {
+          $course_progress = 0;
 
-            $course_progress = 0;
+          if ( ! empty( $course->course_user ) ) {
+            $course_progress = $course->course_user->user_course_completed;
+          }
 
-            if ( ! empty( $course->course_user ) ) {
+          $data .= '<li>
+                    <div class="iped-course">';
 
-                $course_progress = $course->course_user->user_course_completed;
-            }
+          // Se está no centro mostra a imagem
+          if( $region == 'content' ) {
+            $data .= '<div class="iped-course-image">
+                          <a href="https://www.iped.com.br/"><img src="'.$course->course_image.'"></a>
+                        </div>';
+          }
+          $data .= '<div class="iped-course-title">
+                      <a href="'.$course->course_iframe_url.'" target="_blank"><strong>'.$course->course_title.'</strong></a>';
 
-            $data .= '<li class="list-group-item pl-0 pr-0">
-                        <div class="row">
-                            <div class="col-8 pr-0">
-                                <div class="d-flex flex-row align-items-center" style="height: 32px">';
+          // O curso iniciou?
+          if ( $course_progress != 0 ) {
+            $data .= '<div class="iped-progress"><div class="iped-progressbar" role="progressbar" style="width: '.$course_progress.'%" aria-valuenow="'.$course_progress.'" aria-valuemin="0" aria-valuemax="100">'.$course_progress.'%</div></div>';
+          }
 
-            $data .= "<img src='{$course->course_image}' class='bg-pulse-grey rounded-circle'  style='height: 32px; width: 32px;'>";
-            $data .= "<div style='flex: 1' class='pl-2'>
-                        <a href='{$course->course_iframe_url}' target='_blank'><strong>{$course->course_title}</strong></a>";
+          $data .= '</div><!-- iped course title -->';
 
-            if ( $course_progress != 0 ) {
-                $data .= "<div class='progress'>
-                            <div class='progress-bar bg-warning' role='progressbar' style='width: {$course_progress}%' aria-valuenow='{$course_progress}' aria-valuemin='0' aria-valuemax='100'>{$course_progress}%</div>
-                        </div>";
-            }
+          // Está na centro?
+          if( $region == 'content') {
+            $data .= '<div class="iped-button">
+                              <a href="'.$course->course_iframe_url.'" target="_blank"><strong>Ir para o Curso</strong></a>
+                            </div>';
+          }
 
-            $data .= '</div>';
-
-            $data .= "</div>
-                        </div>
-                        <div class='col-4 pr-3'>
-                            <div class='d-flex flex-row justify-content-end' style='height: 32px; padding-top: 2px'>
-                                <a href='{$course->course_iframe_url}' target='_blank' class='btn btn-sm btn-info text-uppercase'><strong>Ir para o Curso</strong></a>
-                            </div>
-                        </div>
-                    </div>
-                </li>";
+          $data .= '</div>';
+          $data .= '<div class="clearfix"></div>';
+          $data .= '<hr /></li>';
         }
-
-        $data .= '</ul> </div>';
+        $data .=  '</ul></div>';
 
         return $data;
     }
